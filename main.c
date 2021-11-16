@@ -19,7 +19,7 @@ int main(void)
     int ** Tablero = CrearTablero();
     Ficha * Negras = Crear_fichas(1);
     Ficha * Blancas = Crear_fichas(2);
-
+    int turno = 0;
 
 
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -33,7 +33,18 @@ int main(void)
         DibujarFichas(Blancas, WHITE);
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         {
-            premovimiento(GetMouseX(),GetMouseY(),Blancas);
+            if(turno == 1)
+            {
+                premovimiento(GetMouseX(),GetMouseY(),Blancas, turno);
+                turno = 0;
+            }
+            else
+            {
+                premovimiento(GetMouseX(),GetMouseY(),Negras, turno);
+                turno = 1;
+            }
+
+
         }
 
 

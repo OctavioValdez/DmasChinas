@@ -198,28 +198,59 @@ void Display(Ficha * fichas)
     }
 }
 
-void premovimiento(int x, int y,Ficha * fichas)
+void premovimiento(int x, int y,Ficha * fichas,int turno)
 {
-    Ficha * current = fichas -> sig;
-    int x_fichaD = current -> x + 45, x_fichaI = current -> x - 45;
-    int y_fichaD = current -> y + 45, y_fichaU = current -> y - 45;
-
-    while(current != NULL)
+    if (turno == 0)
     {
-        x_fichaD = current -> x + 45, x_fichaI = current -> x - 45;
-        y_fichaD = current -> y + 45, y_fichaU = current -> y - 45;
+        Ficha * current = fichas -> sig;
+        int x_fichaD = current -> x + 45, x_fichaI = current -> x - 45;
+        int y_fichaD = current -> y + 45, y_fichaU = current -> y - 45;
 
-        if (x > x_fichaI &&  x < x_fichaD)
+        while(current != NULL)
         {
-            if ( y > y_fichaU &&  y < y_fichaD)
+            x_fichaD = current -> x + 45, x_fichaI = current -> x - 45;
+            y_fichaD = current -> y + 45, y_fichaU = current -> y - 45;
+
+            if (x > x_fichaI &&  x < x_fichaD)
             {
-                printf("Ahuevo que si");
-                break;
+                if ( y > y_fichaU &&  y < y_fichaD)
+                {
+                    printf("Ahuevo que si");
+                    break;
+                }
             }
+            current = current -> sig;
         }
-        current = current -> sig;
+
+        if(current == NULL)
+            printf("Pendejo\n");
     }
 
-    if(current == NULL)
-        printf("Pendejo\n");
+    if (turno == 1)
+    {
+        Ficha * current = fichas -> sig;
+        int x_fichaD = current -> x + 45, x_fichaI = current -> x - 45;
+        int y_fichaD = current -> y + 45, y_fichaU = current -> y - 45;
+
+        while(current != NULL)
+        {
+            x_fichaD = current -> x + 45, x_fichaI = current -> x - 45;
+            y_fichaD = current -> y + 45, y_fichaU = current -> y - 45;
+
+            if (x > x_fichaI &&  x < x_fichaD)
+            {
+                if ( y > y_fichaU &&  y < y_fichaD)
+                {
+                    printf("Ahuevo que si");
+                    break;
+                }
+            }
+            current = current -> sig;
+        }
+
+        if(current == NULL)
+            printf("Pendejo\n");
+    }
+
 }
+
