@@ -31,6 +31,11 @@ int main(void)
         TableroDisplay(screenWidth,screenHeight);
         DibujarFichas(Negras, BLACK);
         DibujarFichas(Blancas, WHITE);
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+        {
+            premovimiento(GetMouseX(),GetMouseY(),Blancas);
+        }
+
 
         EndDrawing();
 
