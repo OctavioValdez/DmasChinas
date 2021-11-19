@@ -106,6 +106,21 @@ void addF(Ficha * ficha,int x, int y, int id)
 
 }
 
+void prueba(Ficha* fichas)
+{
+    Ficha * current = fichas -> sig;
+
+    while(current != NULL)
+    {
+        if (current -> id == 4)
+        {
+            current -> x = current -> x + 100;
+            break;
+        }
+        current = current -> sig;
+    }
+}
+
 Ficha *Crear_fichas(int C)
 {
     if(C == 1) {
@@ -191,66 +206,82 @@ void DibujarFichas(Ficha * fichas, color C)
 void Display(Ficha * fichas)
 {
     Ficha* Current = fichas;
-    while (Current != NULL)
-    {
-        printf("%d, %d, %d\n",Current -> x, Current -> y, Current -> id);
-        Current = Current -> sig;
-    }
+//    while (Current != NULL)
+//    {
+//        printf("%d, %d, %d\n",Current -> x, Current -> y, Current -> id);
+//        Current = Current -> sig;
+//    }
+
+    printf("%d, %d, %d\n",Current -> x, Current -> y, Current -> id);
 }
 
-void premovimiento(int x, int y,Ficha * fichas,int turno)
+void cambioDeTurno(int* Turno)
 {
-    if (turno == 0)
+    if(*Turno == 1)
+        *Turno = 0;
+    else
+        *Turno = 1;
+}
+
+Ficha* DetectF(int x, int y,Ficha* ficha)
+{
+    Ficha* current = ficha -> sig;
+
+    while(current != NULL)
     {
-        Ficha * current = fichas -> sig;
-        int x_fichaD = current -> x + 45, x_fichaI = current -> x - 45;
-        int y_fichaD = current -> y + 45, y_fichaU = current -> y - 45;
-
-        while(current != NULL)
+        if(current -> x -45 < x && current -> x + 45 > x)
         {
-            x_fichaD = current -> x + 45, x_fichaI = current -> x - 45;
-            y_fichaD = current -> y + 45, y_fichaU = current -> y - 45;
-
-            if (x > x_fichaI &&  x < x_fichaD)
-            {
-                if ( y > y_fichaU &&  y < y_fichaD)
-                {
-                    printf("Ahuevo que si");
-                    break;
-                }
-            }
-            current = current -> sig;
+            if(current -> y - 45 < y && current -> y + 45 > y)
+                break;
         }
+        current = current -> sig;
+    }
+    if (current == NULL)
+        DrawText("Picale a tus fichas", 400,400, 36, BLUE);
 
-        if(current == NULL)
-            printf("Pendejo\n");
+    return current;
+
+}
+
+void CirculosR(Ficha *ficha)
+{
+
+    if(ficha -> id < 12)
+    {
+        DrawCircle(ficha->x - 100, ficha->y + 100, 45, RED);
+        DrawCircle(ficha->x + 100, ficha->y + 100, 45, RED);
     }
 
-    if (turno == 1)
+    else
     {
-        Ficha * current = fichas -> sig;
-        int x_fichaD = current -> x + 45, x_fichaI = current -> x - 45;
-        int y_fichaD = current -> y + 45, y_fichaU = current -> y - 45;
+        DrawCircle(ficha -> x - 100, ficha -> y - 100, 45, RED);
+        DrawCircle(ficha -> x + 100, ficha -> y - 100, 45, RED);
+    }
+}
 
-        while(current != NULL)
+void Movimiento(int x, int y, Ficha *ficha)
+{
+    if(ficha -> x + 145 > x && ficha -> x +55 < x)
+    {
+        if(ficha -> y + 145 > y && ficha -> x + 55 < y)
         {
-            x_fichaD = current -> x + 45, x_fichaI = current -> x - 45;
-            y_fichaD = current -> y + 45, y_fichaU = current -> y - 45;
+            ficha -> x += 100;
+            ficha -> y += 100;
 
-            if (x > x_fichaI &&  x < x_fichaD)
-            {
-                if ( y > y_fichaU &&  y < y_fichaD)
-                {
-                    printf("Ahuevo que si");
-                    break;
-                }
-            }
-            current = current -> sig;
         }
+    }
 
-        if(current == NULL)
-            printf("Pendejo\n");
+    else if(ficha -> x - 145 > x && ficha -> x - 55 < x)
+    {
+        if(ficha -> y - 145 > y && ficha -> y - 55 < y)
+        {
+            ficha -> x -= 100;
+            ficha -> y -= 100;
+
+        }
     }
 
 }
+
+
 

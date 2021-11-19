@@ -11,5 +11,9 @@ Ficha *Crear_fichas(int C);
 void DibujarFichas(Ficha * fichas, color C);
 void Display(Ficha * fichas);
 void addF(Ficha * ficha,int x, int y, int id);
-void premovimiento(int x, int y, Ficha * fichas, int turno);
+void cambioDeTurno(int* Turno);
+Ficha* DetectF(int x, int y,Ficha* ficha);
+void CirculosR(Ficha *ficha);
+void Movimiento(int x, int y, Ficha *ficha);
+void prueba(Ficha* fichas);
 #endif //PROYECTOPROGRA_SETTINGS_H

@@ -19,7 +19,8 @@ int main(void)
     int ** Tablero = CrearTablero();
     Ficha * Negras = Crear_fichas(1);
     Ficha * Blancas = Crear_fichas(2);
-    int turno = 0;
+    int turno = 1;
+    int* ptrTurno = &turno;
 
 
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -33,15 +34,19 @@ int main(void)
         DibujarFichas(Blancas, WHITE);
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         {
+            if(turno == 0)
+            {
+                Ficha * num = DetectF(GetMouseX(), GetMouseY(), Negras);
+                Display(num);
+                CirculosR(num);
+                turno = 1;
+            }
             if(turno == 1)
             {
-                premovimiento(GetMouseX(),GetMouseY(),Blancas, turno);
+                Ficha * num = DetectF(GetMouseX(), GetMouseY(), Blancas);
+                Display(num);
+                CirculosR(num);
                 turno = 0;
-            }
-            else
-            {
-                premovimiento(GetMouseX(),GetMouseY(),Negras, turno);
-                turno = 1;
             }
 
 
