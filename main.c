@@ -32,30 +32,44 @@ int main(void)
         TableroDisplay(screenWidth,screenHeight);
         DibujarFichas(Negras, BLACK);
         DibujarFichas(Blancas, WHITE);
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-        {
-            if(turno == 0)
-            {
-                Ficha * num = DetectF(GetMouseX(), GetMouseY(), Negras);
-                Display(num);
-                CirculosR(num);
-                turno = 1;
-            }
+
+
+//            if(turno == 0)
+//            {
+//                Ficha * num = DetectF(GetMouseX(), GetMouseY(), Negras);
+//                CirculosR(num);
+//                turno = 1;
+//            }
             if(turno == 1)
             {
-                Ficha * num = DetectF(GetMouseX(), GetMouseY(), Blancas);
-                Display(num);
-                CirculosR(num);
-                turno = 0;
+
+                if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+                {
+                    int clicks = 0;
+                    clicks ++;
+                    int x = GetMouseX();
+                    int y = GetMouseY();
+                    Ficha *num = DetectF(x, y, Blancas);
+                    if(num == NULL)
+                    {
+                        DrawText("Pendejo", 200,200,36,RED);
+                    }
+                    else if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && clicks == 1)
+                    {
+                        CirculosR(num);
+                        if(PosDiagonal(x,y,num) == 1)
+                            Movimiento(num,Blancas);
+
+
+                    }
+
+                }
+
             }
-
-
+        EndDrawing();
         }
 
 
-        EndDrawing();
-
-    }
 
 
     CloseWindow();

@@ -14,6 +14,7 @@ void addF(Ficha * ficha,int x, int y, int id);
 void cambioDeTurno(int* Turno);
 Ficha* DetectF(int x, int y,Ficha* ficha);
 void CirculosR(Ficha *ficha);
-void Movimiento(int x, int y, Ficha *ficha);
+int Movimiento(Ficha *ficha, Ficha *fichas);
+int PosDiagonal(int x, int y, Ficha* ficha);
 void prueba(Ficha* fichas);
 #endif //PROYECTOPROGRA_SETTINGS_H

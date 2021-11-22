@@ -236,8 +236,6 @@ Ficha* DetectF(int x, int y,Ficha* ficha)
         }
         current = current -> sig;
     }
-    if (current == NULL)
-        DrawText("Picale a tus fichas", 400,400, 36, BLUE);
 
     return current;
 
@@ -245,6 +243,7 @@ Ficha* DetectF(int x, int y,Ficha* ficha)
 
 void CirculosR(Ficha *ficha)
 {
+
 
     if(ficha -> id < 12)
     {
@@ -257,29 +256,40 @@ void CirculosR(Ficha *ficha)
         DrawCircle(ficha -> x - 100, ficha -> y - 100, 45, RED);
         DrawCircle(ficha -> x + 100, ficha -> y - 100, 45, RED);
     }
+
 }
 
-void Movimiento(int x, int y, Ficha *ficha)
+int PosDiagonal(int x, int y, Ficha* ficha)
 {
-    if(ficha -> x + 145 > x && ficha -> x +55 < x)
+    if(x < ficha -> x + 145 && ficha -> x + 55 < x)
     {
-        if(ficha -> y + 145 > y && ficha -> x + 55 < y)
+        if(y < ficha -> y - 145 && ficha -> y - 55 )
         {
-            ficha -> x += 100;
-            ficha -> y += 100;
-
+            return 1;
         }
     }
-
-    else if(ficha -> x - 145 > x && ficha -> x - 55 < x)
+    else
     {
-        if(ficha -> y - 145 > y && ficha -> y - 55 < y)
-        {
-            ficha -> x -= 100;
-            ficha -> y -= 100;
-
-        }
+        return 0;
     }
+}
+
+int Movimiento(Ficha *ficha, Ficha *fichas)
+{
+
+    Ficha* current = fichas;
+    while (current != NULL)
+    {
+        if(current -> id == ficha -> id)
+        {
+            break;
+        }
+        current = current -> sig;
+    }
+
+    current -> y -= 100;
+    current -> x += 100;
+    return 1;
 
 }
 
