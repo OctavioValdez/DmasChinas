@@ -10,7 +10,8 @@ struct ficha
     int id;
     int vida;
     struct ficha* sig;
-}typedef Ficha;
+};//typedef Ficha;
+
 
 void TableroDisplay(int width,int height)
 {
@@ -238,8 +239,6 @@ Ficha* DetectF(int x, int y,Ficha* ficha)
 
 void CirculosR(Ficha *ficha)
 {
-
-
     if(ficha -> id < 12)
     {
         DrawCircle(ficha->x - 100, ficha->y + 100, 45, RED);
