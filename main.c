@@ -21,7 +21,7 @@ int main(void)
     Ficha * Blancas = Crear_fichas(2);
     int turno = 1;
     int* ptrTurno = &turno;
-
+    int clicks = 0;
 
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
@@ -32,8 +32,6 @@ int main(void)
         TableroDisplay(screenWidth,screenHeight);
         DibujarFichas(Negras, BLACK);
         DibujarFichas(Blancas, WHITE);
-
-
 //            if(turno == 0)
 //            {
 //                Ficha * num = DetectF(GetMouseX(), GetMouseY(), Negras);
@@ -42,37 +40,23 @@ int main(void)
 //            }
             if(turno == 1)
             {
-
-                if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-                {
-                    int clicks = 0;
-                    clicks ++;
-                    int x = GetMouseX();
-                    int y = GetMouseY();
-                    Ficha *num = DetectF(x, y, Blancas);
-                    if(num == NULL)
+                Ficha *num;
+                    if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                     {
-                        DrawText("Pendejo", 200,200,36,RED);
+                        num = DetectF(GetMouseX(), GetMouseY(), Blancas);
+                        if(num == NULL)
+                        {
+                            DrawText("Pendejo", 200,400,36,RED);
+                        }
+                        else
+                        {
+                            CirculosR(num);
+                        }
                     }
-                    else if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && clicks == 1)
-                    {
-                        CirculosR(num);
-                        if(PosDiagonal(x,y,num) == 1)
-                            Movimiento(num,Blancas);
-
-
-                    }
-
-                }
-
             }
+
         EndDrawing();
         }
-
-
-
-
     CloseWindow();
-
     return 0;
 }

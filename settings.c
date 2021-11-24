@@ -206,11 +206,6 @@ void DibujarFichas(Ficha * fichas, color C)
 void Display(Ficha * fichas)
 {
     Ficha* Current = fichas;
-//    while (Current != NULL)
-//    {
-//        printf("%d, %d, %d\n",Current -> x, Current -> y, Current -> id);
-//        Current = Current -> sig;
-//    }
 
     printf("%d, %d, %d\n",Current -> x, Current -> y, Current -> id);
 }
@@ -259,12 +254,22 @@ void CirculosR(Ficha *ficha)
 
 }
 
+void Movimiento(Ficha *ficha)
+{
+    ficha -> y -= 100;
+    ficha -> x += 100;
+}
+
 int PosDiagonal(int x, int y, Ficha* ficha)
 {
+    if (ficha == NULL)
+        return 0;
+
     if(x < ficha -> x + 145 && ficha -> x + 55 < x)
     {
-        if(y < ficha -> y - 145 && ficha -> y - 55 )
+        if(y > ficha -> y - 145 && ficha -> y - 55 > y)
         {
+            Movimiento(ficha);
             return 1;
         }
     }
@@ -274,24 +279,7 @@ int PosDiagonal(int x, int y, Ficha* ficha)
     }
 }
 
-int Movimiento(Ficha *ficha, Ficha *fichas)
-{
 
-    Ficha* current = fichas;
-    while (current != NULL)
-    {
-        if(current -> id == ficha -> id)
-        {
-            break;
-        }
-        current = current -> sig;
-    }
-
-    current -> y -= 100;
-    current -> x += 100;
-    return 1;
-
-}
 
 
 
