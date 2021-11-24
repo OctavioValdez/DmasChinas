@@ -15,7 +15,7 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "Damas Chinas");
 
-    SetTargetFPS(60);
+    SetTargetFPS(20);
     int ** Tablero = CrearTablero();
     Ficha * Negras = Crear_fichas(1);
     Ficha * Blancas = Crear_fichas(2);
@@ -23,11 +23,13 @@ int main(void)
     int* ptrTurno = &turno;
     int clicks = 0;
 
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    int wasMousePressed = 0;
+    Ficha *selected = NULL;
+
+
+  while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-
-        BeginDrawing();
-
+      BeginDrawing();
         ClearBackground(BAGE);
         TableroDisplay(screenWidth,screenHeight);
         DibujarFichas(Negras, BLACK);
@@ -40,19 +42,26 @@ int main(void)
 //            }
             if(turno == 1)
             {
-                Ficha *num;
-                    if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+              if(selected)
+              {
+                // aqui ya tenemos una ficha seleccionada, que queremos hacer con ella
+                CirculosR(selected);
+                if(IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+                {
+                  // aqui posiblemente queremos revisar si el siguiente click del usuario es
+                  // en un movimiento legal? si lo es, realizarlo, si no lo es, "limpiar" la seleccion con selected=null
+                  selected = NULL;
+                }
+
+              }
+
+              if( selected == NULL && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
                     {
-                        num = DetectF(GetMouseX(), GetMouseY(), Blancas);
-                        if(num == NULL)
-                        {
-                            DrawText("Pendejo", 200,400,36,RED);
-                        }
-                        else
-                        {
-                            CirculosR(num);
-                        }
+                      selected = DetectF(GetMouseX(), GetMouseY(), Blancas);
+                      if(selected == NULL)
+                        DrawText("eres un burro", 200,400,36,RED);
                     }
+
             }
 
         EndDrawing();
