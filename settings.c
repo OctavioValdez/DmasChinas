@@ -10,8 +10,7 @@ struct ficha
     int id;
     int vida;
     struct ficha* sig;
-};//typedef Ficha;
-
+}typedef Ficha;
 
 void TableroDisplay(int width,int height)
 {
@@ -93,7 +92,7 @@ int** CrearTablero()
 
 void addF(Ficha * ficha,int x, int y, int id)
 {
-     Ficha* Current = ficha;
+    Ficha* Current = ficha;
 
     while(Current -> sig != NULL)
         Current = Current -> sig;
@@ -207,6 +206,11 @@ void DibujarFichas(Ficha * fichas, color C)
 void Display(Ficha * fichas)
 {
     Ficha* Current = fichas;
+//    while (Current != NULL)
+//    {
+//        printf("%d, %d, %d\n",Current -> x, Current -> y, Current -> id);
+//        Current = Current -> sig;
+//    }
 
     printf("%d, %d, %d\n",Current -> x, Current -> y, Current -> id);
 }
@@ -239,6 +243,8 @@ Ficha* DetectF(int x, int y,Ficha* ficha)
 
 void CirculosR(Ficha *ficha)
 {
+
+
     if(ficha -> id < 12)
     {
         DrawCircle(ficha->x - 100, ficha->y + 100, 45, RED);
@@ -253,32 +259,86 @@ void CirculosR(Ficha *ficha)
 
 }
 
-void Movimiento(Ficha *ficha)
+void MovimientoBlancas(Ficha *ficha, int dir)
 {
-    ficha -> y -= 100;
-    ficha -> x += 100;
+    if (dir == 1) //Si el movimiento es hacia la derecha
+    {
+        ficha->y = ficha->y - 100;
+        ficha->x = ficha->x + 100;
+    }
+    else //Movimiento a la izquierda
+    {
+        ficha->y = ficha->y - 100;
+        ficha->x = ficha->x - 100;
+    }
 }
 
-int PosDiagonal(int x, int y, Ficha* ficha)
+void MovimientoNegras(Ficha *ficha, int dir)
 {
-    if (ficha == NULL)
-        return 0;
-
-    if(x < ficha -> x + 145 && ficha -> x + 55 < x)
+    if (dir == 1) //Si el movimiento es hacia la derecha
     {
-        if(y > ficha -> y - 145 && ficha -> y - 55 > y)
+        ficha->y = ficha->y + 100;
+        ficha->x = ficha->x + 100;
+    }
+    else //Nos movemos a la izquierda
+    {
+        ficha->y = ficha->y + 100;
+        ficha->x = ficha->x - 100;
+    }
+}
+
+int PosDiagonalNegras(int x, int y, Ficha* ficha)
+{
+    if(ficha == NULL)
+        return 0;
+    int derecha = 1;
+    int izquierda = 0;
+
+    if (x < ficha->x + 145 && ficha->x + 55 < x)
+    {
+        if (y < ficha->y + 145 && ficha->y + 55 < y)
         {
-            Movimiento(ficha);
+            MovimientoNegras(ficha, derecha); //Movimiento de fichas negras a la derecha
+            return 1;
+        }
+    }
+    if (x > ficha->x - 145 && ficha->x - 55 > x)
+    {
+        if (y < ficha->y + 145 && ficha->y + 55 < y)
+        {
+            MovimientoNegras(ficha, izquierda); //Movimiento de fichas negras a la izquierda
             return 1;
         }
     }
     else
-    {
         return 0;
-    }
 }
 
+int PosDiagonalBlancas(int x, int y, Ficha* ficha)
+{
+    if(ficha == NULL)
+        return 0;
+    int derecha = 1;
+    int izquierda = 0;
+
+    if (x < ficha->x + 145 && ficha->x + 55 < x)
+    {
+        if (y > ficha->y - 145 && ficha->y - 55 > y)
+        {
+            MovimientoBlancas(ficha, derecha); //Movimiento de fichas blancas a la derecha
+            return 1;
+        }
+    }
+    if (x > ficha->x - 145 && ficha->x - 55 > x)
+    {
+        if (y > ficha->y - 145 && ficha->y - 55 > y)
+        {
+            MovimientoBlancas(ficha, izquierda); //Movimiento de fichas blancas a la izquierda
+            return 1;
+        }
+    }
+    else
+        return 0;
 
 
-
-
+}
