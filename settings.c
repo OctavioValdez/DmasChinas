@@ -327,6 +327,8 @@ int PosDiagonalBlancas(int x, int y, Ficha* ficha)
         {
             MovimientoBlancas(ficha, derecha); //Movimiento de fichas blancas a la derecha
             return 1;
+        } else {
+          return 0;
         }
     }
     if (x > ficha->x - 145 && ficha->x - 55 > x)
@@ -335,10 +337,10 @@ int PosDiagonalBlancas(int x, int y, Ficha* ficha)
         {
             MovimientoBlancas(ficha, izquierda); //Movimiento de fichas blancas a la izquierda
             return 1;
+        } else {
+          return 0;
         }
     }
     else
         return 0;
-
-
 }
