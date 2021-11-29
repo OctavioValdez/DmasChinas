@@ -304,14 +304,12 @@ int PosDiagonalNegras(int x, int y, Ficha* ficha)
     }
     if (x > ficha->x - 145 && ficha->x - 55 > x)
     {
-        if (y < ficha->y + 145 && ficha->y + 55 < y)
-        {
-            MovimientoNegras(ficha, izquierda); //Movimiento de fichas negras a la izquierda
-            return 1;
+        if (y < ficha->y + 145 && ficha->y + 55 < y) {
+          MovimientoNegras(ficha, izquierda); //Movimiento de fichas negras a la izquierda
+          return 1;
         }
     }
-    else
-        return 0;
+    return 0;
 }
 
 int PosDiagonalBlancas(int x, int y, Ficha* ficha)
@@ -323,22 +321,17 @@ int PosDiagonalBlancas(int x, int y, Ficha* ficha)
 
     if (x < ficha->x + 145 && ficha->x + 55 < x)
     {
-        if (y > ficha->y - 145 && ficha->y - 55 > y)
-        {
-            MovimientoBlancas(ficha, derecha); //Movimiento de fichas blancas a la derecha
-            return 1;
+        if (y > ficha->y - 145 && ficha->y - 55 > y) {
+          MovimientoBlancas(ficha, derecha); //Movimiento de fichas blancas a la derecha
+          return 1;
         }
     }
     if (x > ficha->x - 145 && ficha->x - 55 > x)
     {
-        if (y > ficha->y - 145 && ficha->y - 55 > y)
-        {
-            MovimientoBlancas(ficha, izquierda); //Movimiento de fichas blancas a la izquierda
-            return 1;
+        if (y > ficha->y - 145 && ficha->y - 55 > y) {
+          MovimientoBlancas(ficha, izquierda); //Movimiento de fichas blancas a la izquierda
+          return 1;
         }
     }
-    else
-        return 0;
-
-
+    return 0;
 }

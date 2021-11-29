@@ -66,6 +66,7 @@ int main(void)
 
     int wasMousePressed = 0;
     Ficha *selected = NULL;
+    Ficha *candidate = NULL;
 
 
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -76,7 +77,7 @@ int main(void)
         DibujarFichas(Negras, BLACK);
         DibujarFichas(Blancas, WHITE);
 
-        /*if(turno == 0)
+        if(turno == 0)
         {
             if(selected)
             {
@@ -86,23 +87,23 @@ int main(void)
                 {
                     // aqui posiblemente queremos revisar si el siguiente click del usuario es
                     // en un movimiento legal? si lo es, realizarlo, si no lo es, "limpiar" la seleccion con selected=null
-                    PosDiagonalNegras(GetMouseX(), GetMouseY(), selected);
-                    selected = NULL;
+                    if(PosDiagonalNegras(GetMouseX(), GetMouseY(), selected))
+                    {
+                      turno = 1;
+                      selected = NULL;
+                    }
                 }
                     //else
                     //selected = NULL;
                     //cambioDeTurno(&turno);
-            }
-
-            if( selected == NULL && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+            } else if( selected == NULL && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
                 selected = DetectF(GetMouseX(), GetMouseY(), Negras);
                 if(selected == NULL)
                     DrawText("eres un burro", 200,400,36,RED);
             }
-        }*/
-
-        if(turno == 1)
+        }
+        else if(turno == 1)
         {
             if(selected)
             {
@@ -112,17 +113,18 @@ int main(void)
                 {
                     // aqui posiblemente queremos revisar si el siguiente click del usuario es
                     // en un movimiento legal? si lo es, realizarlo, si no lo es, "limpiar" la seleccion con selected=null
-                    PosDiagonalBlancas(GetMouseX(), GetMouseY(), selected);
-                    selected = NULL;
-
-                    //else
+                    if(PosDiagonalBlancas(GetMouseX(), GetMouseY(), selected))
+                    {
+                      // asumo que este movimiento YA fue legal
+                      turno = 0;
+                      selected = NULL;
+                    }
+                  //else
                         //selected = NULL;
                     //cambioDeTurno(&turno);
                 }
 
-            }
-
-            if( selected == NULL && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+            } else if( selected == NULL && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
                 selected = DetectF(GetMouseX(), GetMouseY(), Blancas);
                 if(selected == NULL)
